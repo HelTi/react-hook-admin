@@ -1,10 +1,14 @@
+import React, { lazy, useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Root from "../layout/root";
 import ErrorPage from "../layout/error-page";
 import Login from "../views/login";
-import Home from "../views/home";
-import Article from "../views/article";
-import { useEffect, useState } from "react";
+import ArticleList from "../views/article/list";
+// import Home from "../views/home";
+// import Article from "../views/article";
+const Home = lazy(() => wait(1000).then(() => import("../views/home")));
+const Article = lazy(() => wait(1000).then(() => import("../views/article")));
+
 
 const routes = [
   {
@@ -20,6 +24,10 @@ const routes = [
         path: "article",
         element: <Article />,
       },
+      {
+        path:'/article/list',
+        element: <ArticleList />
+      }
     ],
   },
   {
@@ -27,6 +35,12 @@ const routes = [
     element: <Login />,
   },
 ];
+
+function wait(time) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, time);
+  });
+}
 
 export default function AuthRoutes() {
   const navigate = useNavigate();
