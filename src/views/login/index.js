@@ -1,13 +1,21 @@
 import { Button, Col, Form, Input, Row } from "antd";
+import { useNavigate } from "react-router-dom";
 
 import { userLogin } from "../../services/login";
 
 export default function Login() {
+  const navigate = useNavigate();
   const onFinish = async (values) => {
     console.log("Success:", values);
 
     const res = await userLogin(values);
     console.log("res", res);
+
+    if (res?.code === 200) {
+      const { data } = res;
+      window.localStorage.setItem("token",`Bearer ${data.token}`);
+      navigate("/");
+    }
   };
 
   const onFinishFailed = (errorInfo) => {

@@ -1,9 +1,11 @@
 import axios from "axios";
 import { message } from "antd";
+import ApiUrl from "@/config/api-url";
 
 
 const axiosInstance = axios.create({
   timeout: 2000,
+  baseURL: ApiUrl.ManApiUrl,
   headers: {
     "Content-Type": "application/json;charset=utf-8",
   },
@@ -28,7 +30,7 @@ axiosInstance.interceptors.response.use(
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
     console.log("axios response", response);
-    return response;
+    return response.data;
   },
   function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
