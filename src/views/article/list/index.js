@@ -84,14 +84,11 @@ function deleteArticleHandle() {}
 export default function ArticleList() {
   const [articleList, setArtilceList] = useState([]);
   const [tableLoading, setTableLoading] = useState(true);
-  const [searchParams, setSearchParams] = useState({
-    pageNo: 1,
-    pageSize: 2,
-  });
+  const [total, setTotal] = useState(0);
+
   const [paginationConfig, setPaginationConfig] = useState({
     current: 1,
     pageSize: 2,
-    total: 100,
     showSizeChanger: true,
     showTotal: (total) => (
       <>
@@ -101,36 +98,28 @@ export default function ArticleList() {
   });
 
   useEffect(() => {
-    console.log("useEffect", searchParams);
+    const getArticle = async () => {
+      setTableLoading(true);
+      const params = {
+        pageNo: paginationConfig.current,
+        pageSize: paginationConfig.pageSize,
+      };
+      const res = await queryArticleList(params);
+      setTableLoading(false);
+      const { data } = res;
+      if (Array.isArray(data.data)) {
+        setArtilceList(data.data);
+        setTotal(data?.count || 0);
+      }
+    };
     getArticle();
-  }, [searchParams]);
-
-  const getArticle = async () => {
-    setTableLoading(true);
-    const res = await queryArticleList(searchParams);
-    setTableLoading(false);
-    const { data } = res;
-    if (Array.isArray(data.data)) {
-      setArtilceList(data.data);
-      setPaginationConfig({
-        ...paginationConfig,
-        total: data?.count || 0,
-      });
-    }
-  };
+  }, [paginationConfig]);
 
   const handleTableChange = (pagination) => {
-
     setPaginationConfig({
       ...paginationConfig,
       ...pagination,
     });
-    setSearchParams({
-      ...searchParams,
-      pageNo: pagination.current,
-      pageSize: pagination.pageSize,
-    });
-
   };
 
   return (
@@ -139,7 +128,7 @@ export default function ArticleList() {
         rowKey={(record) => record._id}
         dataSource={articleList}
         columns={columns}
-        pagination={paginationConfig}
+        pagination={{ ...paginationConfig, total }}
         onChange={handleTableChange}
         loading={tableLoading}
       ></Table>
