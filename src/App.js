@@ -1,4 +1,5 @@
 import "antd/dist/reset.css";
+import './App.css'
 import { BrowserRouter } from "react-router-dom";
 import AuthRoutes from "./routes";
 

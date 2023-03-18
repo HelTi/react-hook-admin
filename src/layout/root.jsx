@@ -90,9 +90,8 @@ const Root = () => {
         </Header>
         <Content
           style={{
-            margin: "24px 16px",
-            padding: 24,
-            minHeight: 280,
+            // margin: "20px 10px",
+            padding: 20,
           }}
         >
           <React.Suspense fallback={<div>loading</div>}>
