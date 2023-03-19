@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import {
+  AppstoreOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  AntDesignOutlined
+} from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 
 const items = [
-  { label: "首页", key: "/", path: "/" }, // 菜单项务必填写 key
-  { label: "About", key: "/about" },
-  { label: "文章", key: "/article" },
+  { label: "首页", icon: <AppstoreOutlined />, key: "/", path: "/" }, // 菜单项务必填写 key
   {
     label: "文章管理",
     key: "artile",
+    icon: <AppstoreOutlined />,
     children: [
       { label: "文章列表", key: "/article/list" },
       { label: "文章标签", key: "/article/tags" },
@@ -19,17 +23,16 @@ const items = [
   {
     label: "评论管理",
     key: "comment",
-    children: [
-      { label: "评论列表", key: "/comment/list" },
-    ],
+    icon: <AppstoreOutlined />,
+    children: [{ label: "评论列表", key: "/comment/list" }],
   },
   {
     label: "站点管理",
     key: "websit",
+    icon: <AppstoreOutlined />,
     children: [
       { label: "文件管理", key: "/websit/file" },
       { label: "访客统计", key: "/websit/vistor" },
-
     ],
   },
 ];
@@ -60,7 +63,10 @@ const Root = () => {
   return (
     <Layout style={{ height: "100%" }}>
       <Sider theme="light" trigger={null} collapsible collapsed={collapsed}>
-        <div className="sidebar-header">管理后台</div>
+        <div className="sidebar-header">
+          <AntDesignOutlined />
+          {!collapsed && <span>管理后台</span>}
+        </div>
         <Menu
           theme="light"
           mode="inline"

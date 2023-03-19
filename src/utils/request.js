@@ -1,6 +1,7 @@
 import axios from "axios";
 import { message } from "antd";
 import ApiUrl from "@/config/api-url";
+import storage from "./storage";
 
 
 const axiosInstance = axios.create({
@@ -47,7 +48,7 @@ axiosInstance.interceptors.response.use(
 );
 
 function getToken() {
-  return window.localStorage.getItem("token");
+  return storage.get("token");
 }
 
 export default axiosInstance;

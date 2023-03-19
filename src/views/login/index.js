@@ -1,3 +1,4 @@
+import storage from "@/utils/storage";
 import { Button, Col, Form, Input, Row } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +14,8 @@ export default function Login() {
 
     if (res?.code === 200) {
       const { data } = res;
-      window.localStorage.setItem("token",`Bearer ${data.token}`);
+      // window.localStorage.setItem("token",`Bearer ${data.token}`);
+      storage.set("token", `Bearer ${data.token}`);
       navigate("/");
     }
   };
