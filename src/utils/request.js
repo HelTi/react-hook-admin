@@ -47,7 +47,7 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-function getToken() {
+export function getToken() {
   return storage.get("token");
 }
 

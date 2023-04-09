@@ -114,6 +114,21 @@ export default function ArticleList() {
     getArticle();
   }, [paginationConfig]);
 
+  const getArticleHandle = async ()=>{
+    setTableLoading(true);
+    const params = {
+      pageNo: paginationConfig.current,
+      pageSize: paginationConfig.pageSize,
+    };
+    const res = await queryArticleList(params);
+    setTableLoading(false);
+    const { data } = res;
+    if (Array.isArray(data.data)) {
+      setArtilceList(data.data);
+      setTotal(data?.count || 0);
+    }
+  }
+
   const handleTableChange = (pagination) => {
     setPaginationConfig({
       ...paginationConfig,
@@ -140,6 +155,7 @@ export default function ArticleList() {
         deleteArticle(uuid).then((res) => {
           if (res.code === 200) {
             message.success("删除成功！");
+            getArticleHandle()
           } else {
             message.error("删除失败");
           }

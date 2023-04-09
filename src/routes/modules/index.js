@@ -8,6 +8,8 @@ const Home = lazy(() => import("@/views/home"));
 const Article = lazy(() => import("@/views/article"));
 const Tags = lazy(() => import("@/views/article/tags"));
 const AddArtile = lazy(() => import("@/views/article/add"));
+const FileAdmin = lazy(()=>import("@/views/website/file"))
+const Visitor = lazy(()=>import("@/views/website/visitor"))
 
 export const routes = [
   {
@@ -57,6 +59,24 @@ export const routes = [
           roles: ["admin"],
           title: "添加文章",
           key: "/article/add",
+        },
+      },
+      {
+        path: "/websit/file",
+        element: <FileAdmin />,
+        meta: {
+          roles: ["admin"],
+          title: "文件管理",
+          key: "/websit/file",
+        },
+      },
+      {
+        path: "/websit/vistor",
+        element: <Visitor />,
+        meta: {
+          roles: ["admin"],
+          title: "访客统计",
+          key: "/websit/vistor",
         },
       },
     ],

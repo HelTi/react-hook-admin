@@ -21,12 +21,6 @@ const items = [
     ],
   },
   {
-    label: "评论管理",
-    key: "comment",
-    icon: <AppstoreOutlined />,
-    children: [{ label: "评论列表", key: "/comment/list" }],
-  },
-  {
     label: "站点管理",
     key: "websit",
     icon: <AppstoreOutlined />,
@@ -65,7 +59,7 @@ const Root = () => {
       <Sider theme="light" trigger={null} collapsible collapsed={collapsed}>
         <div className="sidebar-header">
           <AntDesignOutlined />
-          {!collapsed && <span>管理后台</span>}
+          {!collapsed && <span className="admin-name">管理后台</span>}
         </div>
         <Menu
           theme="light"
