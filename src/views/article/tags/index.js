@@ -35,16 +35,13 @@ const Tags = () => {
   }, [inputValue]);
 
   useEffect(() => {
-    console.log('useEffect getTags')
-    getTags();
+    getTags()
   }, []);
 
   const getTags = () => {
     fetchTags().then((res) => {
-      console.log(res);
       const { data } = res;
       setTags(data || []);
-      console.log("tags--", tags);
     });
   };
 
